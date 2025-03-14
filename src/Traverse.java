@@ -69,5 +69,54 @@ public class Traverse {
     v45.neighbors = new ArrayList<>(List.of(v23));
     v23.neighbors = new ArrayList<>(List.of());
     v67.neighbors = new ArrayList<>(List.of(v91));
+
+    printVertices(v3);
+    printVerticesMap(graph, 3);
+  }
+
+  public static void printVerticesMap(Map<Integer, Set<Integer>> graph, int start) {
+    // create visited set
+    //    if start is null or visited: return
+    //    print start
+    //    add to visited
+    //    for each neighbor
+    //       start.neighbors
+    //       graph.set(start)
+    //       dfs(neighbor)
+
+    Set<Integer> visited = new HashSet<>();
+    printVerticesMapHelper(graph, start, visited);
+  }
+
+  public static void printVerticesMapHelper(Map<Integer, Set<Integer>> graph, int start, Set<Integer> visited) {
+    if (graph == null) return;
+    if (!graph.containsKey(start)) return;
+    if (visited.contains(start)) return;
+
+    System.out.println(start);
+    visited.add(start);
+
+    for (int neighbor : graph.get(start)) {
+      printVerticesMapHelper(graph, neighbor, visited);
+    }
+  }
+
+
+
+  public static <T> void printVertices(Vertex<T> vertex) {
+    Set<Vertex<T>> set = new HashSet<>();
+    printVerticesHelper(vertex, set);
+  }
+
+  private static <T> void printVerticesHelper(Vertex<T> vertex, Set<Vertex<T>> visited) {
+    if (vertex == null) return;
+    if (visited.contains(vertex)) return;
+
+    System.out.println(vertex.data);
+    visited.add(vertex);
+
+    for (Vertex<T> neighbor : vertex.neighbors) {
+      printVerticesHelper(neighbor, visited);
+    }
   }
 }
